@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TEST PAGE</title>
+  </head>
+  <body>
+    <script>
+      const localhost = 'http://172.30.11.29' || 'http://localhost';
+      const apiBase = 'https://app-leonbets.dev.leoncorp.net';
+
+      function setCookies() {
+        setCookie('user', 'John');
+        setCookie('user2', 'John');
+      }
+
+      function getCookies() {
+        console.log(getCookie('user'), getCookie('user2'));
+      }
+      function getCookie(name) {
+        let matches = document.cookie.match(
+          new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'),
+        );
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+      }
+
+      function setCookie(name, value, options = {}) {
+        options = {
+          path: '/',
+          // при необходимости добавьте другие значения по умолчанию
+          ...options,
+        };
+
+        if (options.expires instanceof Date) {
+          options.expires = options.expires.toUTCString();
+        }
+
+        let updatedCookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+
+        for (let optionKey in options) {
+          updatedCookie += '; ' + optionKey;
+          let optionValue = options[optionKey];
+          if (optionValue !== true) {
+            updatedCookie += '=' + optionValue;
+          }
+        }
+
+        document.cookie = updatedCookie;
+      }
+
+      function fetchGetApiData() {
+        //return fetchData('http://localhost:80/get-api', {});
+        return fetchData(`${localhost}/get-api`, {
+          credentials: 'include',
+
+          headers: {
+            'Set-Cookie': document.cookie,
+          },
+        });
+      }
+
+      function fetchPostApiData() {
+        return fetchData(`${localhost}/post-api`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Set-Cookie': document.cookie,
+          },
+        });
+      }
+
+      async function fetchData(url = '', options) {
+        const response = await fetch(url, options);
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('__DATA:', data);
+        } else {
+          console.error('__ERROR:', response.status);
+        }
+      }
+
+      function fetchApi2Data() {
+        return fetchData(
+          `${localhost}/api-2/betline/changes/inplay?ctag=ru-RU-lpVK27Lkag&vtag=e8a1839e-6655-4669-b347-ad0d69e68c41&hideClosed=true`,
+        );
+      }
+
+      function fetchApi1Data() {
+        return fetchData(`${apiBase}/api-1`, {
+          headers: {
+            'content-type': 'application/json',
+            'x-app-browser': 'chrome',
+            'x-app-env': 'prod',
+            'x-app-language': 'ru_RU',
+            'x-app-layout': 'desktop',
+            'x-app-modernity': '2019',
+            'x-app-os': 'macos',
+            'x-app-platform': 'web',
+            'x-app-rendering': 'csr',
+            'x-app-skin': 'default',
+            'x-app-theme': 'dark',
+            'x-app-version': '6.3.0',
+          },
+          body:
+            '[{"id":"2db76259-84a8-4d88-8504-d932e52529fd","query":"query getBanners {\\n  queries {\\n    banners {\\n      getBanners {\\n        ts\\n        data {\\n          bannerGroups {\\n            name\\n            visibility\\n            weight\\n            isSlider\\n            banners {\\n              id\\n              image\\n              isOpenInNewWindow\\n              location\\n              name\\n              page\\n              source\\n              path\\n              pathType\\n              visibility\\n              displayRoutes {\\n                routeName\\n                parentRouteName\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n}\\n","variables":{}}]',
+          method: 'POST',
+          credentials: 'include',
+        });
+      }
+    </script>
+  </body>
+</html>

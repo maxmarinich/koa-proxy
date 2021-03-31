@@ -1,0 +1,42 @@
+{
+  "name": "koa-proxy",
+  "displayName": "koa-proxy",
+  "version": "0.0.1",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
+    "start": "nodemon proxy",
+    "test": "echo No test && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "@koa/cors": "^3.1.0",
+    "@koa/router": "^10.0.0",
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "koa": "^2.11.0",
+    "koa-proxies": "^0.11.0",
+    "koa-static": "^5.0.0",
+    "nodemon": "^2.0.4",
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "husky": "^4.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint",
+      "pre-push": "yarn run lint"
+    }
+  },
+  "engines": {
+    "node": ">= 12.15.0",
+    "yarn": "^1.21.1"
+  }
+}
