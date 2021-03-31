@@ -1,3 +1,4 @@
+const path = require('path');
 const cors = require('@koa/cors');
 const proxy = require('koa-proxies');
 const serve = require('koa-static');
@@ -6,7 +7,8 @@ const proxyScheme = require('../scheme');
 const defaultOptions = require('../options');
 
 const configureStatic = (app) => {
-  app.use(serve('../../test'));
+  const pathname = path.resolve(__dirname + '../../../test');
+  app.use(serve(pathname));
 };
 
 const configureCors = (app) => {

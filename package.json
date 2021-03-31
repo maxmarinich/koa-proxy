@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
-    "start": "nodemon proxy",
+    "start": "nodemon src",
     "test": "echo No test && exit 1"
   },
   "keywords": [
@@ -16,6 +16,7 @@
   "author": "",
   "license": "",
   "devDependencies": {
+    "@babel/eslint-parser": "^7.13.14",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.0.0",
     "eslint": "^7.11.0",
@@ -23,7 +24,7 @@
     "koa": "^2.11.0",
     "koa-proxies": "^0.11.0",
     "koa-static": "^5.0.0",
-    "nodemon": "^2.0.4",
+    "nodemon": "^2.0.4"
   },
   "dependencies": {
     "dotenv": "^8.2.0",

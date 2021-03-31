@@ -1,10 +1,8 @@
 module.exports = {
   env: {
     node: true,
-    es6: true,
-    browser: true,
+    es2020: true,
   },
-  parser: '@babel/eslint-parser',
   rules: {
     'no-console': 'off',
     'no-restricted-syntax': ['error', "BinaryExpression[operator='in']"],

@@ -1,12 +1,17 @@
+const { interfaces } = require('./network');
+
+const [host] = interfaces.en0;
+const target = `http://${host}`;
+
 module.exports = [
   {
     match: '/api-1',
-    target: '/post-api',
-    rewrite: (path) => path.replace('api-1', 'api/get'),
+    target: `${target}/post-api`,
+    rewrite: (path) => path.replace('api-1', ''),
   },
   {
     match: '/api-2',
-    target: '/get-api',
-    rewrite: (path) => path.replace('api-2', 'api/rest'),
+    target: `${target}/get-api`,
+    rewrite: (path) => path.replace('api-2', ''),
   },
 ];
